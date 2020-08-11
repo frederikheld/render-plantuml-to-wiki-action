@@ -74,9 +74,10 @@ git push
 
 # Print debug info:
 echo "Done."
-
-echo "Newly created images can be embedded into the wiki with the following tags:"
-for file in $input_files
+echo ""
+echo "The rendered images can now be embedded into the wiki with the following tags:"
+output_files=$(find "${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_upload_dir}" -type f -name '*' -print)
+for file in $output_files
 do
-    echo "[[$(find "${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_upload_dir}" -type f -name '*' -print | sed -e "s@^${GITHUB_WORKSPACE}/artifacts_repo@@")|alt text]]"
+    echo "[[$(echo $file | sed -e "s@^${GITHUB_WORKSPACE}/artifacts_repo@@")|alt text]]"
 done
