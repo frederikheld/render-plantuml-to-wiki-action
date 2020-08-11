@@ -61,6 +61,10 @@ echo "---"
 echo "output dir contents:"
 ls -la "$local_output_dir"
 
+# Set git user settings (this is needed to commit and push):
+git config --local user.email "github-action@users.noreply.github.com"
+git config --local user.name "GitHub Action 'Render PlantUML'"
+
 echo "Cloning $artifacts_repo"
 git clone $artifacts_repo "${GITHUB_WORKSPACE}/artifacts_repo"
 
