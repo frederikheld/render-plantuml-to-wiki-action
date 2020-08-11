@@ -38,6 +38,9 @@ wget -O plantuml.jar https://sourceforge.net/projects/plantuml/files/plantuml.1.
 # Prepare output dir:
 mkdir -p "$local_output_dir"
 
+# DEBUG:
+echo "Hello World!" > "$local_output_dir/hello.txt"
+
 # Run PlantUML for each file path:
 for file in $input_files
 do
