@@ -9,6 +9,7 @@ input_dir="/input"
 output_dir="/output"
 
 # Print debug info:
+echo "all args: $*"
 echo "output dir: $output_dir"
 echo "input  dir: $input_dir"
 echo "ARTIFACTS_REPO: $ARTIFACTS_REPO"
@@ -22,6 +23,8 @@ echo "---"
 input_files=$(find $input_dir -type f -name '*' -print)
 echo "files found:\n$input_files"
 echo "---"
+
+exit 0 # DEBUG
 
 # Run PlantUML for each file path:
 for file in $input_files
