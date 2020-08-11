@@ -23,7 +23,7 @@ echo "root directory contents:"
 ls -la 
 
 echo "input dir directory contents:"
-ls -la $input_dir
+ls -la "$input_dir"
 
 # Get paths to all files in input directory:
 input_files=$(find $input_dir -type f -name '*' -print)
