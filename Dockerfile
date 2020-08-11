@@ -5,7 +5,7 @@ RUN apt-get update && \
     apt-get install -y openjdk-8-jre && \
     apt-get install -y git
 
-RUN wget -O plantuml.jar https://sourceforge.net/projects/plantuml/files/plantuml.1.2020.15.jar/download
+# RUN wget -O plantuml.jar https://sourceforge.net/projects/plantuml/files/plantuml.1.2020.15.jar/download
 
 RUN mkdir input && \
     mkdir output
