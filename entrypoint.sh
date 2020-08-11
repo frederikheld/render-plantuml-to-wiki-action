@@ -84,7 +84,7 @@ git push
 # Print debug info:
 echo "Done."
 echo ""
-echo "The rendered images can now be embedded into the wiki with the following tags:"
+echo "Use the following tags to embed the generated images into the wiki:"
 output_files=$(find "${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_upload_dir}" -type f -name '*' -print)
 
 ORIGINAL_IFS="$IFS"
