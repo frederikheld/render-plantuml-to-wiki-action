@@ -33,7 +33,7 @@ echo "files found:\n$input_files"
 echo "---"
 
 # Download plantuml Java app:
-wget -O plantuml.jar https://sourceforge.net/projects/plantuml/files/plantuml.1.2020.15.jar/download
+wget --quiet -O plantuml.jar https://sourceforge.net/projects/plantuml/files/plantuml.1.2020.15.jar/download
 
 # Prepare output dir:
 mkdir -p "$local_output_dir"
