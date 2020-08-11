@@ -48,7 +48,7 @@ do
     output_filepath=$(dirname $(echo $file | sed -e "s@^$local_input_dir@$local_output_dir@"))
 
     echo "processing '$input_filepath' --> '$output_filepath'"
-    java -jar plantuml.jar -output "$output_filepath" "$input_filepath" -verbose
+    java -jar plantuml.jar -output "./$output_filepath" "./$input_filepath" -verbose
     #java -jar plantuml.jar "$input_filepath"
 done
 echo "---"
