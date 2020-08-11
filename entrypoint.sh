@@ -74,7 +74,7 @@ ls -la "${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_upload_dir}"
 
 echo "Moving generated files to $artifacts_upload_dir"
 mkdir -p "${GITHUB_WORKSPACE}/${artifacts_upload_dir}"
-yes | cp -rf "${GITHUB_WORKSPACE}/${local_output_dir}/*" "${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_upload_dir}"
+yes | cp --recursive --force "${GITHUB_WORKSPACE}/${local_output_dir}" "${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_upload_dir}"
 
 echo "DEBUG: upload directory after copy:"
 ls -la "${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_upload_dir}"
