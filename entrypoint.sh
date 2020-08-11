@@ -5,8 +5,8 @@
 #ARTIFACTS_DIR=$2
 
 # Set paths inside Docker container:
-input_dir="/input"
-output_dir="/output"
+input_dir=$INPUT_DIR
+output_dir=$OUTPUT_DIR
 
 # Print debug info:
 echo "all args: $0"
@@ -19,14 +19,13 @@ echo "INPUT_DIR:      $INPUT_DIR"
 echo "OUTPUT_DIR:     $OUTPUT_DIR"
 echo "---"
 
+echo "directory contents:"
 ls -la 
 
 # Get paths to all files in input directory:
 input_files=$(find $input_dir -type f -name '*' -print)
 echo "files found:\n$input_files"
 echo "---"
-
-exit 0 # DEBUG
 
 # Run PlantUML for each file path:
 for file in $input_files
@@ -38,6 +37,8 @@ do
     java -jar plantuml.jar -output "$output_filepath" "$input_filepath"
 done
 echo "---"
+
+exit 0 # DEBUG
 
 echo "Cloning $ARTIFACTS_REPO"
 git clone $ARTIFACTS_REPO pushrepo
