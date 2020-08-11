@@ -86,11 +86,13 @@ ls -la "${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_upload_dir}"
 git config --global user.name "${GITHUB_ACTOR}"
 git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 echo "DEBUG: git config:"
-echo git config --list
+git config --list
 
 echo "Commit artifacts:"
 cd "${GITHUB_WORKSPACE}/artifacts_repo"
-git commit -am"Auto-generated PlantUML diagrams"
+git status
+git add .
+git commit -m"Auto-generated PlantUML diagrams"
 
 echo "Push artifacts:"
 git push
