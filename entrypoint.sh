@@ -5,7 +5,7 @@ local_input_dir=$INPUT_DIR
 local_output_dir="output"
 
 # artifacts_repo="git@github.com:social-gardeners/pot-pourri-pro.wiki.git"
-artifacts_repo="https://${WIKI_AUTH_TOKEN}@github.com/social-gardeners/pot-pourri-pro.wiki.git"
+artifacts_repo="https://${WIKI_AUTH_TOKEN}@github.com/${GITHUB_REPOSITORY}.wiki.git"
 artifacts_upload_dir=$OUTPUT_DIR
 
 # Print debug info:
@@ -74,3 +74,9 @@ git push
 
 # Print debug info:
 echo "Done."
+
+echo "Newly created images can be embedded into the wiki with the following tags:"
+for file in $input_files
+do
+    echo "[[$(echo $file | sed -e "s@^${local_input_dir}@${local_output_dir}@"))|alt text]]"
+done
