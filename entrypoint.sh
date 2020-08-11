@@ -8,7 +8,8 @@
 local_input_dir=$INPUT_DIR
 local_output_dir="output"
 
-artifacts_repo="git@github.com:social-gardeners/pot-pourri-pro.wiki.git"
+# artifacts_repo="git@github.com:social-gardeners/pot-pourri-pro.wiki.git"
+artifacts_repo="https://${WIKI_TOKEN}@github.com/social-gardeners/pot-pourri-pro.wiki.git"
 artifacts_upload_dir=$OUTPUT_DIR
 
 # Print debug info:
@@ -19,9 +20,9 @@ echo "local_output_dir: $local_output_dir"
 echo "artifacts_repo:       $artifacts_repo"
 echo "artifacts_upload_dir: $artifacts_upload_dir"
 echo ""
-echo "GITHUB_TOKEN:   $GITHUB_TOKEN"
-echo "INPUT_DIR:      $INPUT_DIR"
-echo "OUTPUT_DIR:     $OUTPUT_DIR"
+echo "WIKI_TOKEN: $WIKI_TOKEN"
+echo "INPUT_DIR:  $INPUT_DIR"
+echo "OUTPUT_DIR: $OUTPUT_DIR"
 echo ""
 echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
 echo "---"
