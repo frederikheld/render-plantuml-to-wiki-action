@@ -20,4 +20,4 @@ $ docker run --rm --volume $(pwd)/input_directory:/input --volume $(pwd)/output_
 
 The container will recursively look for files that contain `@startXYZ` in `./input_directory` and render them into `.png` files in `./output_directory`. It will keep the nested directory structure.
 
-NOTE: As a single source file can contain multiple diagrams, the generated files will be named after the diagram name and placed in a directory named after the source file.
+NOTE: The generated files be will named after the `diagram name` specified in `@startXYZ diagram name`, not after it's original file name! If a file contains multiple diagrams, a separate output file will be generated for each diagram.
