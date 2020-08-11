@@ -78,5 +78,6 @@ echo "Done."
 echo "Newly created images can be embedded into the wiki with the following tags:"
 for file in $input_files
 do
-    echo "[[$(echo $file | sed -e "s@^${local_input_dir}@${local_output_dir}@"))|alt text]]"
+    echo "[[/$(find "$local_output_dir" -type f -name '*' -print)|alt text]]"
+    
 done
