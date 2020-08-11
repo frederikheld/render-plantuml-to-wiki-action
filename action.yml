@@ -1,3 +1,5 @@
+# This action renders PlantUML diagrams. As it does use an instance of the PlantUML Java app instead of the public PlantUML render service may actions use, this action doesn't leak your documentation to the public and can therefore be used in private repositories.
+
 name: Render PlantUML
 
 on:
