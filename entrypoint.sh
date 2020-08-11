@@ -32,6 +32,8 @@ input_files=$(find "$local_input_dir" -type f -name '*' -print)
 echo "files found:\n$input_files"
 echo "---"
 
+wget -O plantuml.jar https://sourceforge.net/projects/plantuml/files/plantuml.1.2020.15.jar/download
+
 # Run PlantUML for each file path:
 for file in $input_files
 do
