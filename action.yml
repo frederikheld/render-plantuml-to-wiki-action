@@ -13,8 +13,8 @@ branding:
     color: 'blue'
 
 inputs:
-    GITHUB_TOKEN:
-        description: 'Secure GitHub token to access wiki repo'
+    WIKI_TOKEN:
+        description: 'Secure token to access wiki repo'
         required: true
     INPUT_DIR:
         description: 'Directory in repo to read PlantUML source files from'
@@ -27,7 +27,7 @@ runs:
     using: 'Docker'
     image: 'Dockerfile'
     args:
-        - ${{ inputs.GITHUB_TOKEN }}
+        - ${{ inputs.WIKI_TOKEN }}
         - ${{ inputs.INPUT_DIR }}
         - ${{ inputs.OUTPUT_DIR }}
 

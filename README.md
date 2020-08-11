@@ -6,13 +6,20 @@ Therefore this action can be used in private GitHub projects as it doesn't leak 
 
 ## Usage
 
-Add the following lines to your workflow script:
+In order to push files to the wiki, you need to create an access token that can be used by the action to do so.
+
+Follow this documentation to create an token: https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token
+
+Then follow this documentation to add the secret to your organization: https://docs.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets. Name the Secret `WIKI_TOKEN`.
+
+
+Now add the following lines to your workflow script:
 
 ```sh
     - name: Render PlantUML to wiki
       uses: frederikheld/plantuml-github-action@alpha
       with:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        WIKI_TOKEN: ${{ secrets.WIKI_TOKEN }}
         INPUT_DIR: '/input_directory'
         OUTPUT_DIR: '/output_directory'
 ```
