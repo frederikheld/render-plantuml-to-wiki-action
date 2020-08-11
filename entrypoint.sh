@@ -25,6 +25,7 @@ echo "INPUT_DIR:  $INPUT_DIR"
 echo "OUTPUT_DIR: $OUTPUT_DIR"
 echo ""
 echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
+echo "GITHUB_ACTOR:     $GITHUB_ACTOR"
 echo "---"
 
 echo "root directory contents:"
@@ -80,8 +81,12 @@ echo "DEBUG: upload directory after copy:"
 ls -la "${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_upload_dir}"
 
 # Set git user settings (this is needed to commit and push):
-git config user.email "github-action@users.noreply.github.com"
-git config user.name "GitHub Action 'Render PlantUML'"
+# git config user.email "github-action@users.noreply.github.com"
+# git config user.name "GitHub Action 'Render PlantUML'"
+git config --global user.name "${GITHUB_ACTOR}"
+git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+echo "DEBUG: git config:"
+echo git config --list
 
 echo "Commit artifacts:"
 cd "${GITHUB_WORKSPACE}/artifacts_repo"
