@@ -15,7 +15,7 @@ echo "output dir: $2"
 echo "input  dir: $1"
 #ls -R -a $1
 #du -a $1
-files=$(find $1 -name '*' -type f -print)
+files=$(find $1 -type f -name '*' -print)
 echo "files: $files"
 
 echo "For loop ahead:"
