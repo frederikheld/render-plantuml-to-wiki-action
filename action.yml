@@ -18,10 +18,10 @@ inputs:
         required: true
     INPUT_DIR:
         description: 'Directory in repo to read PlantUML source files from'
-        defaults: '/input_directory'
+        default: '/input_directory'
     OUTPUT_DIR:
         description: 'Directory in wiki to write rendered diagrams to'
-        defaults: '/output_directory'
+        default: '/output_directory'
 
 runs:
     using: 'Docker'
