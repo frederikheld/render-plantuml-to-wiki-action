@@ -78,7 +78,12 @@ yes | cp --recursive --force "${GITHUB_WORKSPACE}/${local_output_dir}/." "${GITH
 
 echo "DEBUG: upload directory after copy:"
 ls -la "${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_upload_dir}"
-ls -la "${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_upload_dir}/output"
+
+echo "Commit artifacts:"
+git commit -am"Auto-generated PlantUML diagrams"
+
+echo "Push artifacts:"
+git push
 
 # Print debug info:
 echo "done"
