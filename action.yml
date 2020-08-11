@@ -6,7 +6,8 @@
 # doesn't leak your documentation to the public and can
 # therefore be used in private repositories.
 
-name: Render PlantUML
+name: 'Render PlantUML'
+description: 'Renders PlantUML diagrams and pushes the resulting PNG file to your wiki repo'
 
 on:
     push:
