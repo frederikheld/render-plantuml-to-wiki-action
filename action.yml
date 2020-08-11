@@ -13,7 +13,7 @@ branding:
     color: 'blue'
 
 inputs:
-    WIKI_TOKEN:
+    WIKI_AUTH_TOKEN:
         description: 'Secure token to access wiki repo'
         required: true
     INPUT_DIR:
@@ -27,7 +27,7 @@ runs:
     using: 'Docker'
     image: 'Dockerfile'
     args:
-        - ${{ inputs.WIKI_TOKEN }}
+        - ${{ inputs.WIKI_AUTH_TOKEN }}
         - ${{ inputs.INPUT_DIR }}
         - ${{ inputs.OUTPUT_DIR }}
 
