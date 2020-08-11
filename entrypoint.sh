@@ -28,7 +28,7 @@ ls -la "$input_dir"
 exit 0 # DEBUG
 
 # Get paths to all files in input directory:
-input_files=$(find $input_dir -type f -name '*' -print)
+input_files=$(find "$input_dir" -type f -name '*' -print)
 echo "files found:\n$input_files"
 echo "---"
 
