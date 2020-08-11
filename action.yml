@@ -27,9 +27,9 @@ runs:
     using: 'Docker'
     image: 'Dockerfile'
     args:
-        - ${{ inputs.GITHUB_TOKEN }}
-        - ${{ inputs.INPUT_DIR }}
-        - ${{ inputs.OUTPUT_DIR }}
+        - ${{ INPUT_GITHUB_TOKEN }}
+        - ${{ INPUT_INPUT_DIR }}
+        - ${{ INPUT_OUTPUT_DIR }}
 
 #on:
 #    push:
