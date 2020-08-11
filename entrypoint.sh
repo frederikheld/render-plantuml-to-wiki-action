@@ -78,5 +78,5 @@ echo "Done."
 echo "Newly created images can be embedded into the wiki with the following tags:"
 for file in $input_files
 do
-    echo "[[/$(find "${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_upload_dir}" -type f -name '*' -print)|alt text]]"
+    echo "[[$(find "${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_upload_dir}" -type f -name '*' -print | sed -e "s@^${GITHUB_WORKSPACE}/artifacts_repo@@")|alt text]]"
 done
