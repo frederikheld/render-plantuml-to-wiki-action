@@ -1,0 +1,28 @@
+name: Render PlantUML
+
+on:
+    push:
+        branches: [ $default-branch ]
+    pull_request:
+        branches: [ $default-branch ]
+
+# defaults:
+#     run:
+#         working-directory: ./plantuml
+
+jobs:
+    render-plantuml:
+        name: Render PlantUML
+        runs-on: ubuntu-latest
+        container: ubuntu:latest
+
+        services:
+            plantuml-server:
+                image: plantuml/plantuml-server:jetty
+
+        steps:
+            - uses: actions/checkout@v2
+            - name: Build Render Container
+              run: docker build -t render-plantuml .
+            - name: Render Diagrams
+              run: docker run --rm --volume $(pwd)/input_directory:/inut --volume $(pwd)/output_directory:/output render-plantuml
