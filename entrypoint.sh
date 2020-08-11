@@ -33,6 +33,7 @@ git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 # git config --global user.email "github-action@users.noreply.github.com"
 
 # Get paths to all files in input directory:
+
 input_files=$(find "$local_input_dir" -type f -name '*' -print)
 
 echo "---"
@@ -47,21 +48,29 @@ mkdir -p "$local_output_dir"
 
 # Run PlantUML for each file path:
 echo "Starting render process ..."
+ORIGINAL_IFS="$IFS"
+IFS='
+'
 for file in $input_files
 do
     input_filepath=$file
     output_filepath=$(dirname $(echo $file | sed -e "s@^${local_input_dir}@${local_output_dir}@"))
 
-    echo "processing '$input_filepath' --> '$output_filepath'"
+    echo " > processing '$input_filepath' --> '$output_filepath'"
     java -jar plantuml.jar -output "${GITHUB_WORKSPACE}/${output_filepath}" "${GITHUB_WORKSPACE}/${input_filepath}"
 done
+IFS="$ORIGINAL_IFS"
+# source: https://unix.stackexchange.com/questions/9496/looping-through-files-with-spaces-in-the-names
+
+echo "Generated files:"
+ls -l "${GITHUB_WORKSPACE}/${output_filepath}"
 
 echo "---"
 
 echo "Cloning $artifacts_repo ..."
 git clone $artifacts_repo "${GITHUB_WORKSPACE}/artifacts_repo"
 
-echo "Moving generated files to $artifacts_upload_dir ..."
+echo "Moving generated files to ${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_upload_dir} ..."
 mkdir -p "${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_upload_dir}"
 yes | cp --recursive --force "${GITHUB_WORKSPACE}/${local_output_dir}/." "${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_upload_dir}"
 
@@ -77,7 +86,12 @@ echo "Done."
 echo ""
 echo "The rendered images can now be embedded into the wiki with the following tags:"
 output_files=$(find "${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_upload_dir}" -type f -name '*' -print)
+
+ORIGINAL_IFS="$IFS"
+IFS='
+'
 for file in $output_files
 do
     echo "[[$(echo $file | sed -e "s@^${GITHUB_WORKSPACE}/artifacts_repo@@")|alt text]]"
 done
+IFS="$ORIGINAL_IFS"
