@@ -9,6 +9,8 @@ input_dir="/input"
 output_dir="/output"
 
 # Print debug info:
+sh -c "echo $*"
+echo "all args: $0"
 echo "all args: $*"
 echo "output dir: $output_dir"
 echo "input  dir: $input_dir"
@@ -18,6 +20,8 @@ echo "GITHUB_TOKEN:   $GITHUB_TOKEN"
 echo "arg_1: $1"
 echo "arg_2: $2"
 echo "---"
+
+ls -la 
 
 # Get paths to all files in input directory:
 input_files=$(find $input_dir -type f -name '*' -print)
