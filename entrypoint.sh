@@ -25,8 +25,6 @@ ls -la
 echo "input directory contents:"
 ls -la "$input_dir"
 
-exit 0 # DEBUG
-
 # Get paths to all files in input directory:
 input_files=$(find "$input_dir" -type f -name '*' -print)
 echo "files found:\n$input_files"
@@ -42,6 +40,8 @@ do
     java -jar plantuml.jar -output "$output_filepath" "$input_filepath"
 done
 echo "---"
+
+exit 0 # DEBUG
 
 echo "Cloning $ARTIFACTS_REPO"
 git clone $ARTIFACTS_REPO pushrepo
