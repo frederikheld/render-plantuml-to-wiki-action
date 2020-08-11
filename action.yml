@@ -7,45 +7,67 @@
 # therefore be used in private repositories.
 
 name: 'Render PlantUML'
-description: 'Renders PlantUML diagrams and pushes the resulting PNG file to your wiki repo'
+description: 'Renders PlantUML diagrams and pushes the generated PNG files to your wiki repo'
+branding:
+    icon: 'file-text'
+    color: 'blue'
 
-on:
-    push:
-        branches: [ $default-branch ]
-    pull_request:
-        branches: [ $default-branch ]
+inputs:
+    GITHUB_TOKEN:
+        description: 'Secure GitHub token to access wiki repo'
+        required: true
+    INPUT_DIR:
+        description: 'Directory in repo to read PlantUML source files from'
+        defaults: '/input_directory'
+    OUTPUT_DIR:
+        description: 'Directory in wiki to write rendered diagrams to'
+        defaults: '/output_directory'
+
+runs:
+    using: 'Docker'
+    image: 'Dockerfile'
+    args:
+        - ${{ inputs.GITHUB_TOKEN }}
+        - ${{ inputs.INPUT_DIR }}
+        - ${{ inputs.OUTPUT_DIR }}
+
+#on:
+#    push:
+#        branches: [ $default-branch ]
+#    pull_request:
+#        branches: [ $default-branch ]
 
 # defaults:
 #     run:
 #         working-directory: ./plantuml
 
-jobs:
-    render-plantuml:
-        name: Render PlantUML
-        runs-on: ubuntu-latest
-        container: ubuntu:latest
+# jobs:
+#     render-plantuml:
+#         name: Render PlantUML
+#         runs-on: ubuntu-latest
+#         container: ubuntu:latest
 
-        steps:
-            - name: Checkout repo
-              uses: actions/checkout@v2
+#         steps:
+#             - name: Checkout repo
+#               uses: actions/checkout@v2
 
-            - name: Build render container
-              run: docker build -t render-plantuml .
+#             - name: Build render container
+#               run: docker build -t render-plantuml .
 
-            - name: Render diagrams
-              run: docker run --rm --volume $(pwd)/input_directory:/inut --volume $(pwd)/output_directory:/output render-plantuml --env ARTIFACTS_REPO=$ARTIFACTS_REPO --env ARTIFACTS_DIR=$ARTIFACTS_DIR
-              env:
-                ARTIFACTS_REPO: git@github.com:social-gardeners/pot-pourri-pro.wiki.git
-                ARTIFACTS_DIR: /attachments/auto-generated
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#             - name: Render diagrams
+#               run: docker run --rm --volume $(pwd)/input_directory:/inut --volume $(pwd)/output_directory:/output render-plantuml --env ARTIFACTS_REPO=$ARTIFACTS_REPO --env ARTIFACTS_DIR=$ARTIFACTS_DIR
+#               env:
+#                 ARTIFACTS_REPO: git@github.com:social-gardeners/pot-pourri-pro.wiki.git
+#                 ARTIFACTS_DIR: /attachments/auto-generated
+#                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-            - name: DEBUG List files to check if I can access them in the next steps
-              run: ls -la $(pwd)/output_directory
+#             - name: DEBUG List files to check if I can access them in the next steps
+#               run: ls -la $(pwd)/output_directory
 
-            - name: Checkout wiki repo
-              uses: actions/checkout@v2
-              with:
-                repository: social-gardeners/pot-pourri-pro.wiki
-                token: ${{ secrets.GITHUB_TOKEN }}
-              run: cd pot-pourri-pro.wiki && ls -la
+#             - name: Checkout wiki repo
+#               uses: actions/checkout@v2
+#               with:
+#                 repository: social-gardeners/pot-pourri-pro.wiki
+#                 token: ${{ secrets.GITHUB_TOKEN }}
+#               run: cd pot-pourri-pro.wiki && ls -la
 
