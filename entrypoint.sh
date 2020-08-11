@@ -33,7 +33,7 @@ echo "files found:\n$input_files"
 echo "---"
 
 # Download plantuml Java app:
-wget -O plantuml.jar https://sourceforge.net/projects/plantuml/files/plantuml.1.2020.15.jar/download
+wget --quiet -O plantuml.jar https://sourceforge.net/projects/plantuml/files/plantuml.1.2020.15.jar/download
 
 # Prepare output dir:
 mkdir -p "$local_output_dir"
@@ -48,7 +48,8 @@ do
     output_filepath=$(dirname $(echo $file | sed -e "s@^$local_input_dir@$local_output_dir@"))
 
     echo "processing '$input_filepath' --> '$output_filepath'"
-    java -jar plantuml.jar -output "$output_filepath" "$input_filepath"
+    #java -jar plantuml.jar -output "$output_filepath" "$input_filepath"
+    java -jar plantuml.jar "$input_filepath"
 done
 echo "---"
 
