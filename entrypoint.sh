@@ -9,20 +9,14 @@ input_dir="/input"
 output_dir="/output"
 
 # Print debug info:
-sh -c "echo $*"
 echo "all args: $0"
+echo ""
 echo "output dir: $output_dir"
 echo "input  dir: $input_dir"
-echo ""
-echo "ARTIFACTS_REPO: $ARTIFACTS_REPO"
-echo "ARTIFACTS_DIR:  $ARTIFACTS_DIR"
 echo ""
 echo "GITHUB_TOKEN:   $GITHUB_TOKEN"
 echo "INPUT_DIR:      $INPUT_DIR"
 echo "OUTPUT_DIR:     $OUTPUT_DIR"
-echo ""
-echo "arg_1: $1"
-echo "arg_2: $2"
 echo "---"
 
 ls -la 
