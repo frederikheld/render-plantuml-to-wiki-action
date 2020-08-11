@@ -7,14 +7,17 @@
 # Set paths inside Docker container:
 local_input_dir=$INPUT_DIR
 local_output_dir="output"
-wiki_upload_dir=$OUTPUT_DIR
+
+artifacts_repo="git@github.com:social-gardeners/pot-pourri-pro.wiki.git"
+artifacts_upload_dir=$OUTPUT_DIR
 
 # Print debug info:
 echo "all args: $0"
 echo ""
 echo "local_input_dir:  $local_input_dir"
 echo "local_output_dir: $local_output_dir"
-echo "wiki_upload_dir:  $wiki_upload_dir"
+echo "artifacts_repo:       $artifacts_repo"
+echo "artifacts_upload_dir: $artifacts_upload_dir"
 echo ""
 echo "GITHUB_TOKEN:   $GITHUB_TOKEN"
 echo "INPUT_DIR:      $INPUT_DIR"
@@ -40,9 +43,6 @@ wget --quiet -O plantuml.jar https://sourceforge.net/projects/plantuml/files/pla
 # Prepare output dir:
 mkdir -p "$local_output_dir"
 
-# DEBUG:
-echo "Hello World!" > "$local_output_dir/hello.txt"
-
 # Run PlantUML for each file path:
 for file in $input_files
 do
@@ -50,31 +50,28 @@ do
     output_filepath=$(dirname $(echo $file | sed -e "s@^$local_input_dir@$local_output_dir@"))
 
     echo "processing '$input_filepath' --> '$output_filepath'"
-    java -jar plantuml.jar -output "$GITHUB_WORKSPACE/$output_filepath" "$GITHUB_WORKSPACE/$input_filepath" -verbose
-    #java -jar plantuml.jar "$input_filepath"
+    java -jar plantuml.jar -output "$GITHUB_WORKSPACE/$output_filepath" "$GITHUB_WORKSPACE/$input_filepath"
 done
 echo "---"
 
-echo "root directory contents:"
-ls -la 
+# echo "root directory contents:"
+# ls -la 
 
 echo "output dir contents:"
 ls -la "$local_output_dir"
 
-exit 0 # DEBUG
-
-echo "Cloning $ARTIFACTS_REPO"
-git clone $ARTIFACTS_REPO pushrepo
+echo "Cloning $artifacts_repo"
+git clone $artifacts_repo artifacts_repo
 
 echo "DEBUG: directory before copy:"
-ls -la ./pushrepo$ARTIFACTS_DIR
+ls -la ./artifacts_repo/$artifacts_upload_dir
 
-echo "Moving generated files to $ARTIFACTS_DIR"
-mkdir -p $ARTIFACTS_DIR
-yes | cp -rf $output_filepath ./pushrepo$ARTIFACTS_DIR
+echo "Moving generated files to $artifacts_upload_dir"
+mkdir -p $artifacts_upload_dir
+yes | cp -rf $local_output_dir ./artifacts_repo/$artifacts_upload_dir
 
 echo "DEBUG: directory after copy:"
-ls -la ./pushrepo$ARTIFACTS_DIR
+ls -la ./artifacts_repo/$artifacts_upload_dir
 
 # Print debug info:
 echo "done"
