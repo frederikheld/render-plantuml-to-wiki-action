@@ -11,16 +11,19 @@ output_dir=$OUTPUT_DIR
 # Print debug info:
 echo "all args: $0"
 echo ""
-echo "output dir: $output_dir"
-echo "input  dir: $input_dir"
+echo "input_dir:  $input_dir"
+echo "output_dir: $output_dir"
 echo ""
 echo "GITHUB_TOKEN:   $GITHUB_TOKEN"
 echo "INPUT_DIR:      $INPUT_DIR"
 echo "OUTPUT_DIR:     $OUTPUT_DIR"
 echo "---"
 
-echo "directory contents:"
+echo "root directory contents:"
 ls -la 
+
+echo "input dir directory contents:"
+ls -la $input_dir
 
 # Get paths to all files in input directory:
 input_files=$(find $input_dir -type f -name '*' -print)
