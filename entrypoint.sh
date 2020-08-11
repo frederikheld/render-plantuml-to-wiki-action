@@ -80,6 +80,7 @@ echo "DEBUG: upload directory after copy:"
 ls -la "${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_upload_dir}"
 
 echo "Commit artifacts:"
+cd "${GITHUB_WORKSPACE}/artifacts_repo"
 git commit -am"Auto-generated PlantUML diagrams"
 
 echo "Push artifacts:"
