@@ -76,7 +76,7 @@ yes | cp --recursive --force "${GITHUB_WORKSPACE}/${local_output_dir}/." "${GITH
 echo "Committing artifacts ..."
 cd "${GITHUB_WORKSPACE}/artifacts_repo"
 
-git status
+# git status
 git add .
 
 if git commit -m"Auto-generated PlantUML diagrams"; then
