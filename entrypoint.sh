@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Exit immediately if a command exits with a non-zero status:
+set -e
+
 # Set paths inside Docker container:
 local_input_dir=$INPUT_DIR
 local_output_dir="output"
@@ -56,7 +59,7 @@ do
     input_filepath=$file
     output_filepath=$(dirname $(echo $file | sed -e "s@^${local_input_dir}@${local_output_dir}@"))
 
-    echo " > processing '$input_filepath' --> '$output_filepath'"
+    echo " > processing '$input_filepath'
     java -jar plantuml.jar -output "${GITHUB_WORKSPACE}/${output_filepath}" "${GITHUB_WORKSPACE}/${input_filepath}"
 done
 IFS="$ORIGINAL_IFS"
@@ -74,11 +77,13 @@ echo "Moving generated files to ${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_u
 mkdir -p "${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_upload_dir}"
 yes | cp --recursive --force "${GITHUB_WORKSPACE}/${local_output_dir}/." "${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_upload_dir}"
 
-echo "Committing and pushing artifacts ..."
+echo "Committing artifacts ..."
 cd "${GITHUB_WORKSPACE}/artifacts_repo"
 git status
 git add .
 git commit -m"Auto-generated PlantUML diagrams"
+
+echo "Pushing artifacts ..."
 git push
 
 # Print debug info:
