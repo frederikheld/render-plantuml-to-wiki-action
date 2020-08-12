@@ -72,7 +72,6 @@ echo "---"
 
 echo "Cloning $artifacts_repo ..."
 git clone $artifacts_repo "${GITHUB_WORKSPACE}/artifacts_repo"
-echo "DEBUG: exit code of 'git clone' operation: $?"
 
 echo "Moving generated files to ${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_upload_dir} ..."
 mkdir -p "${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_upload_dir}"
@@ -82,21 +81,14 @@ echo "Committing artifacts ..."
 cd "${GITHUB_WORKSPACE}/artifacts_repo"
 
 git status
-echo "DEBUG: exit code of 'git status' operation: $?"
-
 git add .
-echo "DEBUG: exit code of 'git add' operation: $?"
 
-# git update-index --refresh 
-# git diff-index --quiet HEAD --
-# echo "DEBUG: exit code of 'git diff-index --quiet HEAD --' operation: $?"
-
-git commit -m"Auto-generated PlantUML diagrams"
-echo "DEBUG: exit code of 'git commit' operation: $?"
-
-echo "Pushing artifacts ..."
-git push
-echo "DEBUG: exit code of 'git push' operation: $?"
+if git commit -m"Auto-generated PlantUML diagrams"; then
+    echo "Pushing artifacts ..."
+    git push
+else
+    echo "Nothing changed since previous build. The wiki is already up to date."
+fi
 
 # Print debug info:
 echo "Done."
