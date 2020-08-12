@@ -99,6 +99,7 @@ IFS='
 '
 for file in $output_files
 do
-    echo "[[$(echo $file | sed -e "s@^${GITHUB_WORKSPACE}/artifacts_repo@@")|alt=alt text]]"
+    filename=$(basename $file)
+    echo "[[$(echo ${file} | sed -e "s@^${GITHUB_WORKSPACE}/artifacts_repo@@")|alt=${filename%.*}]]"
 done
 IFS="$ORIGINAL_IFS"
