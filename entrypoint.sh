@@ -1,12 +1,15 @@
 #!/bin/sh
 
+# Exit immediately if a command exits with a non-zero status:
+set -e
+
 # Set paths inside Docker container:
-local_input_dir=$INPUT_DIR
+local_input_dir=$INPUT_INPUT_DIR
 local_output_dir="output"
 
 # artifacts_repo="git@github.com:social-gardeners/pot-pourri-pro.wiki.git"
-artifacts_repo="https://${WIKI_AUTH_TOKEN}@github.com/${GITHUB_REPOSITORY}.wiki.git"
-artifacts_upload_dir=$OUTPUT_DIR
+artifacts_repo="https://${INPUT_WIKI_AUTH_TOKEN}@github.com/${GITHUB_REPOSITORY}.wiki.git"
+artifacts_upload_dir=$INPUT_OUTPUT_DIR
 
 # Print debug info:
 echo "DEBUG: all variables"
@@ -17,9 +20,9 @@ echo "> local_output_dir: $local_output_dir"
 echo "> artifacts_repo:       $artifacts_repo"
 echo "> artifacts_upload_dir: $artifacts_upload_dir"
 echo ""
-echo "> WIKI_AUTH_TOKEN: $WIKI_AUTH_TOKEN"
-echo "> INPUT_DIR:  $INPUT_DIR"
-echo "> OUTPUT_DIR: $OUTPUT_DIR"
+echo "> INPUT_WIKI_AUTH_TOKEN: $INPUT_WIKI_AUTH_TOKEN"
+echo "> INPUT_INPUT_DIR:  $INPUT_INPUT_DIR"
+echo "> INPUT_OUTPUT_DIR: $INPUT_OUTPUT_DIR"
 echo ""
 echo "> GITHUB_REPOSITORY: $GITHUB_REPOSITORY"
 echo "> GITHUB_WORKSPACE:  $GITHUB_WORKSPACE"
@@ -56,7 +59,7 @@ do
     input_filepath=$file
     output_filepath=$(dirname $(echo $file | sed -e "s@^${local_input_dir}@${local_output_dir}@"))
 
-    echo " > processing '$input_filepath' --> '$output_filepath'"
+    echo " > processing '$input_filepath'
     java -jar plantuml.jar -output "${GITHUB_WORKSPACE}/${output_filepath}" "${GITHUB_WORKSPACE}/${input_filepath}"
 done
 IFS="$ORIGINAL_IFS"
@@ -74,11 +77,13 @@ echo "Moving generated files to ${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_u
 mkdir -p "${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_upload_dir}"
 yes | cp --recursive --force "${GITHUB_WORKSPACE}/${local_output_dir}/." "${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_upload_dir}"
 
-echo "Committing and pushing artifacts ..."
+echo "Committing artifacts ..."
 cd "${GITHUB_WORKSPACE}/artifacts_repo"
 git status
 git add .
 git commit -m"Auto-generated PlantUML diagrams"
+
+echo "Pushing artifacts ..."
 git push
 
 # Print debug info:
