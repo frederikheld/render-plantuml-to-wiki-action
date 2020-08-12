@@ -55,6 +55,7 @@ In the same way you can set other attributes that can be used with the HTML `<im
 
 ## Next Steps
 
-- [ ] improve speed of docker build by using an image that comes with pre-installed jre and git (right now the preparation takes >1 minute while the rendering only takes seconds)
+- [ ] improve speed of docker build by using/creating an image that comes with pre-installed dependencies (right now the preparation takes >1 minute while the rendering only takes seconds)
+- [ ] split into two separate actions: render to artifact & push artifact to wiki
 - [ ] allow generation of other file types than PNG
 - [ ] allow user to set git config user.name and user.email via env variables

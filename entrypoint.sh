@@ -37,16 +37,16 @@ git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 # Get paths to all files in input directory:
 input_files=$(find "$local_input_dir" -type f -name '*' -print)
 
-echo "Downloading PlantUML Java app ..."
+echo "+++ Downloading PlantUML Java app ..."
 wget --quiet -O plantuml.jar https://sourceforge.net/projects/plantuml/files/plantuml.1.2020.15.jar/download
 
-echo "Preparing output dir ..."
+echo "+++ Preparing output dir ..."
 mkdir -p "$local_output_dir"
 
 echo "---"
 
 # Run PlantUML for each file path:
-echo "Starting render process ..."
+echo "+++ Starting render process ..."
 ORIGINAL_IFS="$IFS"
 IFS='
 '
@@ -61,37 +61,37 @@ done
 IFS="$ORIGINAL_IFS"
 # source: https://unix.stackexchange.com/questions/9496/looping-through-files-with-spaces-in-the-names
 
-echo "Generated files:"
+echo "+++ Generated files:"
 ls -l "${GITHUB_WORKSPACE}/${output_filepath}"
 
 echo "---"
 
-echo "Cloning wiki repository ..."
+echo "+++ Cloning wiki repository ..."
 git clone $artifacts_repo "${GITHUB_WORKSPACE}/artifacts_repo"
 
-echo "Moving generated files to /${artifacts_upload_dir} in wiki repo ..."
+echo "+++ Moving generated files to /${artifacts_upload_dir} in wiki repo ..."
 mkdir -p "${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_upload_dir}"
 yes | cp --recursive --force "${GITHUB_WORKSPACE}/${local_output_dir}/." "${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_upload_dir}"
 
-echo "Committing artifacts ..."
+echo "+++ Committing artifacts ..."
 cd "${GITHUB_WORKSPACE}/artifacts_repo"
 
 # git status
 git add .
 
 if git commit -m"Auto-generated PlantUML diagrams"; then
-    echo "Pushing artifacts ..."
+    echo "+++ Pushing artifacts ..."
     git push
 else
     echo "Nothing changed since previous build. The wiki is already up to date therefore nothing is being pushed."
 fi
 
 # Print success message:
-echo "Done."
+echo "+++ Done."
 echo "---"
 
 # Print embed tags to help the user:
-echo "Use the following tags to embed the generated images into the wiki:"
+echo "You can use the following tags to embed the generated images into wiki pages:"
 output_files=$(find "${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_upload_dir}" -type f -name '*' -print)
 
 ORIGINAL_IFS="$IFS"
