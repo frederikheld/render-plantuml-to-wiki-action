@@ -90,6 +90,11 @@ git add .
 echo "DEBUG: exit code of 'git add' operation:"
 echo $?
 
+git update-index --refresh 
+git diff-index --quiet HEAD --
+echo "DEBUG: exit code of 'git diff-index --quiet HEAD --' operation:"
+echo $?
+
 git commit -m"Auto-generated PlantUML diagrams"
 echo "DEBUG: exit code of 'git commit' operation:"
 echo $?
