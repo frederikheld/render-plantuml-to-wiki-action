@@ -7,7 +7,7 @@ set -e
 local_input_dir=$INPUT_INPUT_DIR
 local_output_dir="output"
 
-artifacts_repo="https://${INPUT_WIKI_AUTH_TOKEN}@github.com/${GITHUB_REPOSITORY}.wiki.git"
+artifacts_repo="https://${INPUT_WIKI_TOKEN}@github.com/${GITHUB_REPOSITORY}.wiki.git"
 artifacts_upload_dir=$INPUT_OUTPUT_DIR
 
 # Print debug info:
@@ -19,7 +19,7 @@ artifacts_upload_dir=$INPUT_OUTPUT_DIR
 # echo "> artifacts_repo:       $artifacts_repo"
 # echo "> artifacts_upload_dir: $artifacts_upload_dir"
 # echo ""
-# echo "> INPUT_WIKI_AUTH_TOKEN: $INPUT_WIKI_AUTH_TOKEN"
+# echo "> INPUT_WIKI_TOKEN: $INPUT_WIKI_TOKEN"
 # echo "> INPUT_INPUT_DIR:  $INPUT_INPUT_DIR"
 # echo "> INPUT_OUTPUT_DIR: $INPUT_OUTPUT_DIR"
 # echo ""
@@ -99,6 +99,6 @@ IFS='
 '
 for file in $output_files
 do
-    echo "[[$(echo $file | sed -e "s@^${GITHUB_WORKSPACE}/artifacts_repo@@")|alt text]]"
+    echo "[[$(echo $file | sed -e "s@^${GITHUB_WORKSPACE}/artifacts_repo@@")|alt=alt text]]"
 done
 IFS="$ORIGINAL_IFS"
