@@ -15,13 +15,13 @@ Now add the following lines to your workflow script:
 ```sh
     - name: Render PlantUML to wiki
       uses: frederikheld/plantuml-github-action@alpha
-      env:
+      with:
         WIKI_AUTH_TOKEN: ${{ secrets.WIKI_AUTH_TOKEN }}
         INPUT_DIR: 'input_directory'
         OUTPUT_DIR: 'output_directory'
 ```
 
-## Environment variables in detail
+## Arguments in detail
 
 | Variable | Expected content |
 | - | - |
