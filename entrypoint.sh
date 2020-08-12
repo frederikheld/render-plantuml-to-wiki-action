@@ -73,7 +73,7 @@ echo "---"
 echo "Cloning $artifacts_repo ..."
 git clone $artifacts_repo "${GITHUB_WORKSPACE}/artifacts_repo"
 echo "DEBUG: exit code of 'git clone' operation:"
-echo $
+echo $?
 
 echo "Moving generated files to ${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_upload_dir} ..."
 mkdir -p "${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_upload_dir}"
@@ -84,20 +84,20 @@ cd "${GITHUB_WORKSPACE}/artifacts_repo"
 
 git status
 echo "DEBUG: exit code of 'git status' operation:"
-echo $
+echo $?
 
 git add .
 echo "DEBUG: exit code of 'git add' operation:"
-echo $
+echo $?
 
 git commit -m"Auto-generated PlantUML diagrams"
 echo "DEBUG: exit code of 'git commit' operation:"
-echo $
+echo $?
 
 echo "Pushing artifacts ..."
 git push
 echo "DEBUG: exit code of 'git push' operation:"
-echo $
+echo $?
 
 # Print debug info:
 echo "Done."
