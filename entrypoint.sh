@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Exit immediately if a command exits with a non-zero status:
-set -e
+#set -e
 
 # Set paths inside Docker container:
 local_input_dir=$INPUT_INPUT_DIR
