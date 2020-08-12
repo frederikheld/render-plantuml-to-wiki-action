@@ -59,7 +59,7 @@ do
     input_filepath=$file
     output_filepath=$(dirname $(echo $file | sed -e "s@^${local_input_dir}@${local_output_dir}@"))
 
-    echo " > processing '$input_filepath'
+    echo " > processing '$input_filepath'"
     java -jar plantuml.jar -output "${GITHUB_WORKSPACE}/${output_filepath}" "${GITHUB_WORKSPACE}/${input_filepath}"
 done
 IFS="$ORIGINAL_IFS"
