@@ -66,10 +66,10 @@ ls -l "${GITHUB_WORKSPACE}/${output_filepath}"
 
 echo "---"
 
-echo "Cloning $artifacts_repo ..."
+echo "Cloning wiki repository ..."
 git clone $artifacts_repo "${GITHUB_WORKSPACE}/artifacts_repo"
 
-echo "Moving generated files to ${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_upload_dir} ..."
+echo "Moving generated files to /${artifacts_upload_dir} in wiki repo ..."
 mkdir -p "${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_upload_dir}"
 yes | cp --recursive --force "${GITHUB_WORKSPACE}/${local_output_dir}/." "${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_upload_dir}"
 
