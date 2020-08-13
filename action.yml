@@ -3,29 +3,29 @@
 #
 # As it does not use the public PlantUML render service
 # but an intance of the PlantUML Java app, this action
-# doesn't leak your documentation to the public and can
+# doesnt leak your documentation to the public and can
 # therefore be used in private repositories.
 
-name: 'Render PlantUML to Wiki'
-description: 'Renders PlantUML diagrams and pushes the generated PNG files to your repo's wiki'
+name: Render PlantUML to wiki
+description: Renders PlantUML diagrams and pushes the generated PNG files to your repos wiki
 branding:
-    icon: 'file-text'
-    color: 'blue'
+    icon: file-text
+    color: blue
 
 inputs:
     WIKI_TOKEN:
-        description: 'Secure token to access wiki repo'
+        description: Secure token to access wiki repo
         required: true
     INPUT_DIR:
-        description: 'Directory in repo to read PlantUML source files from'
-        default: '/input_directory'
+        description: Directory in repo to read PlantUML source files from
+        default: /input_directory
     OUTPUT_DIR:
-        description: 'Directory in wiki to write rendered diagrams to'
-        default: '/output_directory'
+        description: Directory in wiki to write rendered diagrams to
+        default: /output_directory
 
 runs:
-    using: 'Docker'
-    image: 'Dockerfile'
+    using: Docker
+    image: Dockerfile
     args:
         - ${{ inputs.WIKI_TOKEN }}
         - ${{ inputs.INPUT_DIR }}
