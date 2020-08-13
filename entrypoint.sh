@@ -86,7 +86,7 @@ if git commit -m"Auto-generated PlantUML diagrams"; then
     echo "=> Pushing artifacts ..."
     git push
 else
-    echo "Nothing changed since previous build. The wiki is already up to date therefore nothing is being pushed."
+    echo "(i) Nothing changed since previous build. The wiki is already up to date and therefore nothing is being pushed."
 fi
 
 # Print success message:
