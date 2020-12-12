@@ -8,7 +8,9 @@ For rendering, it uses an instance of the [PlantUML Java app](https://plantuml.c
 
 ## Usage
 
-First you need to create an authentication token that gives this action access to your wiki. This is neccessary since `${{ secrets.GITHUB_TOKEN }}`, which is automatically available within workflows, doesn't work with the wiki.
+First make sure that your wiki is initalized. This means that you need to create at least one page in the wiki before this action can push the rendered diagrams to it. Otherwise the action will fail.
+
+Then you need to create an authentication token that gives this action access to your wiki. This is neccessary since `${{ secrets.GITHUB_TOKEN }}`, which is automatically available within workflows, doesn't work with the wiki.
 
 Follow [this documentation](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) to create the token. Then follow [this documentation](https://docs.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets) to add the secret to your organization. Name the secret `WIKI_TOKEN`.
 
