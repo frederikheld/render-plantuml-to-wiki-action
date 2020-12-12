@@ -71,6 +71,11 @@ rm -r "${GITHUB_WORKSPACE}/artifacts_repo"
 
 echo "=> Cloning wiki repository ..."
 git clone $artifacts_repo "${GITHUB_WORKSPACE}/artifacts_repo"
+if [ $? -gt 0 ]; then
+    echo "   ERROR: Could not clone repo."
+    echo "   Note: you need to initialize the wiki by creating at least one page before you can use this action!"
+    exit 1
+fi
 
 echo "=> Moving generated files to /${artifacts_upload_dir} in wiki repo ..."
 mkdir -p "${GITHUB_WORKSPACE}/artifacts_repo/${artifacts_upload_dir}"
