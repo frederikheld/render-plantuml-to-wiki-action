@@ -90,6 +90,10 @@ git add .
 if git commit -m"Auto-generated PlantUML diagrams"; then
     echo "=> Pushing artifacts ..."
     git push
+    if [ $? -gt 0 ]; then
+    echo "   ERROR: Could not push to repo."
+    exit 1
+fi
 else
     echo "(i) Nothing changed since previous build. The wiki is already up to date and therefore nothing is being pushed."
 fi
