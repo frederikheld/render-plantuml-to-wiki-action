@@ -29,7 +29,7 @@ You can add this step multiple times to your workflow with different input and o
 
 NOTE: The generated files be will named after the `diagram name` specified in `@startXYZ diagram name`, not after it's original file name! If a file contains multiple diagrams, a separate output file will be generated for each diagram!
 
-To it easier for you to embed the image, the action will print embedding markup for all available images after rendering is completed.
+To make it easier for you to embed the image, the action will print embedding markup for all available images after rendering is completed.
 
 ## Arguments
 
