@@ -23,7 +23,10 @@ Now add the following lines to your workflow script:
         WIKI_TOKEN: ${{ secrets.WIKI_TOKEN }}
         INPUT_DIR: 'path/to/input_directory'
         OUTPUT_DIR: 'path/to/output_directory'
+        OUTPUT_FORMAT: "[PNG | SVG | PDF | EPS]"
 ```
+##### Legend
+`OUTPUT_FORMAT` - Select one of the available formats to generate images. If the selected format is not valid it will default to PNG.
 
 You can add this step multiple times to your workflow with different input and output directories, e.g. `planning` with Gantt charts and `architecture` with UML diagrams.
 
@@ -38,6 +41,7 @@ To make it easier for you to embed the image, the action will print embedding ma
 | WIKI_TOKEN | The token you have created above. You can use the token via `${{ secrets.WIKI_TOKEN }}`. If you have named it differently, you need to change the name accordingly.
 | INPUT_DIR | Relative path from the root of your _source code repository_ to the _PlantUML_ source files |
 | OUTPUT_DIR | Relative path from the root of your _wiki repo_<sup>1</sup> to the directory you want to have the generated diagrams being placed in
+| OUTPUT_FORMAT | Format for the generated images, One of the formats: PNG, SVG, PDF or EPS
 
 <sup>1</sup> although the wiki is shown as part of your repository on GitHub, it technically is a separate git repository that you can clone and push changes to. Note that this repo has limited capabilities, e.g. missing support for [Git LFS](https://git-lfs.github.com/)!
 
@@ -61,5 +65,5 @@ In the same way you can set other attributes that can be used with the HTML `<im
 
 - [ ] improve speed of docker build by using/creating an image that comes with pre-installed dependencies (right now the preparation takes >1 minute while the rendering only takes seconds)
 - [ ] split into two separate actions: render to artifact & push artifact to wiki
-- [ ] allow generation of different file types than PNG
+- [x] allow generation of different file types than PNG
 - [ ] allow user to set git config user.name and user.email via env variables
