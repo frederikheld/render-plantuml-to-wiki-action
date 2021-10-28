@@ -22,6 +22,9 @@ inputs:
     OUTPUT_DIR:
         description: Directory in wiki to write rendered diagrams to
         default: /output_directory
+    OUTPUT_FORMAT:
+        description: Output format for the generated images (PNG, SVG, PDF or EPS)
+        default: PNG
 
 runs:
     using: Docker
