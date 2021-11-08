@@ -44,12 +44,6 @@ case $INPUT_OUTPUT_FORMAT in
     svg | SVG)
         local_output_format="-tsvg"
         ;;
-    eps | EPS)
-        local_output_format="-teps"
-        ;;
-    pdf | PDF)
-        local_output_format="-tpdf"
-        ;;
     *)
         local_output_format="-tpng"
         ;;
@@ -61,13 +55,8 @@ input_files=$(find "$local_input_dir" -type f -name '*' -print)
 echo "=> Downloading PlantUML Java app ..."
 wget --quiet -O plantuml.jar "$local_plantuml_jar"
 
-if [ ! -d $local_output_dir ]; then
-    echo "=> Preparing output dir ..."
-    mkdir -p "$local_output_dir"
-else
-    echo "=> Output dir $local_output_dir already exists ..."
-fi
-
+echo "=> Preparing output dir ..."
+mkdir -p "$local_output_dir"
 
 echo "---"
 
