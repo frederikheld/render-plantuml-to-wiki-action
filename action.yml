@@ -19,12 +19,15 @@ inputs:
     INPUT_DIR:
         description: Directory in repo to read PlantUML source files from
         default: /input_directory
+        required: true
     OUTPUT_DIR:
         description: Directory in wiki to write rendered diagrams to
         default: /output_directory
+        required: true
     OUTPUT_FORMAT:
         description: Output format for the generated images (PNG, SVG, PDF or EPS)
         default: PNG
+        required: true
 
 runs:
     using: Docker
