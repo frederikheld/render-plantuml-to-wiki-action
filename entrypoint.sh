@@ -3,6 +3,9 @@
 # Exit immediately if a command exits with a non-zero status:
 #set -e
 
+# Set plantuml jar file
+local_plantuml_jar=https://sourceforge.net/projects/plantuml/files/plantuml.1.2020.15.jar/download
+
 # Set paths inside Docker container:
 local_input_dir=$INPUT_INPUT_DIR
 local_output_dir="output"
@@ -16,12 +19,14 @@ artifacts_upload_dir=$INPUT_OUTPUT_DIR
 # echo ""
 # echo "> local_input_dir:  $local_input_dir"
 # echo "> local_output_dir: $local_output_dir"
+# echo "> local_output_format: $local_output_format"
 # echo "> artifacts_repo:       $artifacts_repo"
 # echo "> artifacts_upload_dir: $artifacts_upload_dir"
 # echo ""
 # echo "> INPUT_WIKI_TOKEN: $INPUT_WIKI_TOKEN"
 # echo "> INPUT_INPUT_DIR:  $INPUT_INPUT_DIR"
 # echo "> INPUT_OUTPUT_DIR: $INPUT_OUTPUT_DIR"
+# echo "> INPUT_OUTPUT_FORMAT: $INPUT_OUTPUT_FORMAT"
 # echo ""
 # echo "> GITHUB_REPOSITORY: $GITHUB_REPOSITORY"
 # echo "> GITHUB_WORKSPACE:  $GITHUB_WORKSPACE"
@@ -34,11 +39,21 @@ git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 # git config --global user.name "GitHub Action 'Render PlantUML'"
 # git config --global user.email "github-action@users.noreply.github.com"
 
+# Setup output format image
+case $INPUT_OUTPUT_FORMAT in
+    svg | SVG)
+        local_output_format="-tsvg"
+        ;;
+    *)
+        local_output_format="-tpng"
+        ;;
+esac
+
 # Get paths to all files in input directory:
 input_files=$(find "$local_input_dir" -type f -name '*' -print)
 
 echo "=> Downloading PlantUML Java app ..."
-wget --quiet -O plantuml.jar https://sourceforge.net/projects/plantuml/files/plantuml.1.2020.15.jar/download
+wget --quiet -O plantuml.jar "$local_plantuml_jar"
 
 echo "=> Preparing output dir ..."
 mkdir -p "$local_output_dir"
@@ -56,7 +71,7 @@ do
     output_filepath=$(dirname $(echo $file | sed -e "s@^${local_input_dir}@${local_output_dir}@"))
 
     echo " > processing '$input_filepath'"
-    java -jar plantuml.jar -charset UTF-8 -output "${GITHUB_WORKSPACE}/${output_filepath}" "${GITHUB_WORKSPACE}/${input_filepath}"
+    java -jar plantuml.jar -charset UTF-8 -output "${GITHUB_WORKSPACE}/${output_filepath}" "${GITHUB_WORKSPACE}/${input_filepath}" $local_output_format
 done
 IFS="$ORIGINAL_IFS"
 # source: https://unix.stackexchange.com/questions/9496/looping-through-files-with-spaces-in-the-names
@@ -91,9 +106,9 @@ if git commit -m"Auto-generated PlantUML diagrams"; then
     echo "=> Pushing artifacts ..."
     git push
     if [ $? -gt 0 ]; then
-    echo "   ERROR: Could not push to repo."
-    exit 1
-fi
+        echo "   ERROR: Could not push to repo."
+        exit 1
+    fi
 else
     echo "(i) Nothing changed since previous build. The wiki is already up to date and therefore nothing is being pushed."
 fi
